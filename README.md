@@ -223,26 +223,3 @@ npm run dev          # runs both servers
 3. Add to `.env` as `ANTHROPIC_API_KEY`
 
 ---
-
-## 🧩 MongoDB Text Index
-
-The app creates a text index automatically via Mongoose. For manual creation:
-
-```js
-db.notes.createIndex({ title: "text", content: "text", tags: "text" })
-```
-
----
-
-## 📦 Production Deployment
-
-1. Build frontend: `cd frontend && npm run build`
-2. Serve static build from backend: Add `express.static` for the build folder
-3. Deploy backend to Railway, Render, or Heroku
-4. Set all environment variables in your deployment platform
-
----
-
-## 📝 License
-
-MIT – Built for educational and production use.
