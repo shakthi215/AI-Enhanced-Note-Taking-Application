@@ -4,6 +4,7 @@
   "description": "AI Notes AI-Powered Smart Notes Backend",
   "main": "server.js",
   "scripts": {
+    "build": "node -e \"console.log('Backend build step not required')\"",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
