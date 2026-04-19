@@ -2,6 +2,8 @@
 
 A full-stack AI-powered smart note-taking system built with React, Node.js, MongoDB Atlas, and Claude AI.
 
+Url : [AI Enhanced Notes Taking Application](https://ai-enhanced-note-taking-application.vercel.app/)
+
 ---
 
 ## 🚀 Tech Stack
