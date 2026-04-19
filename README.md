@@ -165,6 +165,76 @@ npm run dev          # runs both servers
 
 ---
 
+## Deployment
+
+### Frontend on Vercel
+
+Deploy the `frontend` folder as a separate Vercel project.
+
+Build settings:
+
+- Framework Preset: `Create React App`
+- Root Directory: `frontend`
+- Build Command: `npm run build`
+- Output Directory: `build`
+
+Environment variable:
+
+```env
+REACT_APP_API_URL=https://your-render-service.onrender.com/api
+```
+
+Notes:
+
+- `frontend/vercel.json` is included so React Router routes like `/dashboard` and `/notes` resolve correctly after refresh.
+- After the first backend deploy, copy the Render service URL into `REACT_APP_API_URL` and redeploy Vercel.
+
+### Backend on Render
+
+Deploy the `backend` folder as a Node web service on Render.
+
+If you use `render.yaml`, Render can pick up these settings automatically:
+
+- Root Directory: `backend`
+- Build Command: `npm install`
+- Start Command: `npm start`
+- Health Check Path: `/api/health`
+
+Required backend environment variables:
+
+```env
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/ai-notes
+JWT_SECRET=replace_with_a_long_random_secret
+JWT_EXPIRE=7d
+ANTHROPIC_API_KEY=sk-ant-...
+ANTHROPIC_MODEL=claude-3-5-sonnet-latest
+CLIENT_URL=https://your-vercel-project.vercel.app
+NODE_ENV=production
+PORT=10000
+```
+
+Notes:
+
+- `backend/server.js` now accepts `CLIENT_URL` or a comma-separated `CLIENT_URLS` list for CORS, which is useful if you want to allow both your Vercel production URL and a local frontend.
+- After deploying Vercel, update Render with your exact frontend URL so authenticated API requests are accepted.
+
+### Recommended deployment order
+
+1. Deploy the backend to Render.
+2. Copy the Render URL into Vercel as `REACT_APP_API_URL`.
+3. Deploy the frontend to Vercel.
+4. Copy the Vercel URL into Render as `CLIENT_URL`.
+5. Redeploy Render once so CORS matches the live frontend.
+
+Useful docs:
+
+- Vercel CRA docs: https://vercel.com/docs/frameworks/create-react-app
+- Vercel build config docs: https://vercel.com/docs/builds/configure-a-build
+- Render web services docs: https://render.com/docs/web-services
+- Render deploy docs: https://render.com/docs/deploys/
+
+---
+
 ## 🔌 API Endpoints
 
 ### Auth
